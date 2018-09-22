@@ -22,9 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
         this.addButton = (Button) findViewById(R.id.button_main_add);
         this.txtTitle = (EditText) findViewById(R.id.text_main_title);
-        this.txtTitle = (EditText) findViewById(R.id.text_main_description);
+        this.txtDescription = (EditText) findViewById(R.id.text_main_description);
 
-
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               saveItem(view);
+            }
+        });
     }
 
     public void saveItem(View view) {
@@ -32,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         String descr = this.txtDescription.getText().toString();
         MyItem item = new MyItem(title, descr);
         myDataManager.addItem(item);
-        Snackbar.make(view, "Item was added!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        showMessage(view, "Item was added!");
         clearText();
     }
 
@@ -41,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         this.txtTitle.setText("");
         this.txtDescription.setText("");
     }
+
+    public void showMessage(View view, String msg) {
+        Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
 
 
 }
