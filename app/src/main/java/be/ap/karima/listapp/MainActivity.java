@@ -1,5 +1,6 @@
 package be.ap.karima.listapp;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                saveItem(view);
+               goToListActivity();
             }
         });
     }
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 .setAction("Action", null).show();
     }
 
+    public void goToListActivity(){
+        Intent intent = new Intent(this, ListActivity.class);
+        this.startActivity(intent);
+    }
 
 
 }
