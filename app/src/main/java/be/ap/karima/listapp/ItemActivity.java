@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity {
 
     public Button addButton;
     public EditText txtTitle;
@@ -21,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_item);
 
         this.addButton = (Button) findViewById(R.id.button_main_add);
         this.txtTitle = (EditText) findViewById(R.id.text_main_title);

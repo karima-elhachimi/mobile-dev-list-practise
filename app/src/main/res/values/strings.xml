@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">ListApp</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="app_name">List Things</string>
+    <string name="title_activity_list">The list</string>
 </resources>
