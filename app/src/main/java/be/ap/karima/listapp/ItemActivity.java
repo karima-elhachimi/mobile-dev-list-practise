@@ -14,6 +14,7 @@ public class ItemActivity extends AppCompatActivity {
     public EditText txtTitle;
     public EditText txtDescription;
     public DataManager myDataManager = DataManager.getInstance();
+    private Intent intent;
 
     private MyItem item;
 
@@ -25,13 +26,17 @@ public class ItemActivity extends AppCompatActivity {
         this.addButton = (Button) findViewById(R.id.button_main_add);
         this.txtTitle = (EditText) findViewById(R.id.text_main_title);
         this.txtDescription = (EditText) findViewById(R.id.text_main_description);
-
+        //intent altijd in onCreate initialiseren, anders geeft het errors
+        intent = getIntent();
         displayItem();
         addBtnClickHandler();
     }
 
     private void displayItem() {
 
+        item = (MyItem) intent.getParcelableExtra(MyItem.ITEM);
+        txtTitle.setText(item.getmTitle());
+        txtDescription.setText(item.getMyDescription());
     }
 
     private void addBtnClickHandler() {

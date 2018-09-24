@@ -66,6 +66,7 @@ public class ListActivity extends AppCompatActivity {
     private void goToIteMActivity(View view, MyItem item) {
         Intent intent = new Intent(this, ItemActivity.class);
         intent.putExtra(MyItem.ITEM, item);
+        startActivity(intent);
     }
 
 

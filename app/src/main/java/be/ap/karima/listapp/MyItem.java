@@ -18,6 +18,14 @@ public class MyItem implements Parcelable {
         myDescription = parcel.readString();
     }
 
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public String getMyDescription() {
+        return myDescription;
+    }
+
     @Override
     public String toString() {
         return this.mTitle;
