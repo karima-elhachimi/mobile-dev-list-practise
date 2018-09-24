@@ -1,5 +1,6 @@
 package be.ap.karima.listapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -56,11 +57,16 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                MyItem item = (MyItem) mListView.getItemAtPosition(i);
+                goToIteMActivity(view, item );
             }
         });
     }
 
-
+    private void goToIteMActivity(View view, MyItem item) {
+        Intent intent = new Intent(this, ItemActivity.class);
+        intent.putExtra(MyItem.ITEM, item);
+    }
 
 
 }

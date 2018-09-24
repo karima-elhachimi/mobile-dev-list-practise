@@ -15,6 +15,8 @@ public class ItemActivity extends AppCompatActivity {
     public EditText txtDescription;
     public DataManager myDataManager = DataManager.getInstance();
 
+    private MyItem item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +26,20 @@ public class ItemActivity extends AppCompatActivity {
         this.txtTitle = (EditText) findViewById(R.id.text_main_title);
         this.txtDescription = (EditText) findViewById(R.id.text_main_description);
 
+        displayItem();
+        addBtnClickHandler();
+    }
+
+    private void displayItem() {
+
+    }
+
+    private void addBtnClickHandler() {
         this.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               saveItem(view);
-               goToListActivity();
+                saveItem(view);
+                //goToListActivity();
             }
         });
     }
@@ -56,6 +67,8 @@ public class ItemActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ListActivity.class);
         this.startActivity(intent);
     }
+
+
 
 
 }
