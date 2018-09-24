@@ -34,7 +34,9 @@ public class ItemActivity extends AppCompatActivity {
 
     private void displayItem() {
 
-        item = (MyItem) intent.getParcelableExtra(MyItem.ITEM);
+        //check if there was a parcelable item passed
+        boolean checkItemNotNull = ((intent.getParcelableExtra(MyItem.ITEM)) != null);
+        item = checkItemNotNull  ? (MyItem) intent.getParcelableExtra(MyItem.ITEM): new MyItem("",""); //fallback
         txtTitle.setText(item.getmTitle());
         txtDescription.setText(item.getMyDescription());
     }

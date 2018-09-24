@@ -18,6 +18,8 @@ public class ListActivity extends AppCompatActivity {
     private DataManager myDataManager;
     private Spinner mListSpinner;
     private ListView mListView;
+    private FloatingActionButton mFabAddItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +40,20 @@ public class ListActivity extends AppCompatActivity {
         myDataManager = DataManager.getInstance();
         mListSpinner = (Spinner) findViewById(R.id.spinner_list);
         mListView = (ListView) findViewById(R.id.listview_list_all);
+        mFabAddItem = (FloatingActionButton) findViewById(R.id.fab_add_item);
+
+        mFabAddItemClickHandler();
         displayListItems();
         itemOnClickHandler();
+    }
+
+    private void mFabAddItemClickHandler() {
+        mFabAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 
@@ -66,6 +80,11 @@ public class ListActivity extends AppCompatActivity {
     private void goToIteMActivity(View view, MyItem item) {
         Intent intent = new Intent(this, ItemActivity.class);
         intent.putExtra(MyItem.ITEM, item);
+        startActivity(intent);
+    }
+
+    private void goToItemActivity(View view) {
+        Intent intent = new Intent(this, ItemActivity.class);
         startActivity(intent);
     }
 
