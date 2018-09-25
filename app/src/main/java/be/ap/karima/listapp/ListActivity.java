@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 public class ListActivity extends AppCompatActivity {
 
+    //TODO: Wanneer een item is geselecteerd, in de edit activity de aanpassingen opslaan op het bestaande object
     private MyItem item;
     private DataManager myDataManager;
     //private Spinner mListSpinner;
