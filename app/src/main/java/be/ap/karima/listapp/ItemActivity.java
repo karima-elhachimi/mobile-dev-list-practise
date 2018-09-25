@@ -1,6 +1,7 @@
 package be.ap.karima.listapp;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ public class ItemActivity extends AppCompatActivity {
     public Button addButton;
     public EditText txtTitle;
     public EditText txtDescription;
+    public FloatingActionButton fabList;
     public DataManager myDataManager = DataManager.getInstance();
     private Intent intent;
 
@@ -26,10 +28,22 @@ public class ItemActivity extends AppCompatActivity {
         this.addButton = (Button) findViewById(R.id.button_main_add);
         this.txtTitle = (EditText) findViewById(R.id.text_main_title);
         this.txtDescription = (EditText) findViewById(R.id.text_main_description);
+        this.fabList = (FloatingActionButton) findViewById(R.id.fab_list);
         //intent altijd in onCreate initialiseren, anders geeft het errors
         intent = getIntent();
         displayItem();
         addBtnClickHandler();
+        fabListClickHandler();
+    }
+
+    private void fabListClickHandler() {
+        fabList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(ItemActivity.this, ListActivity.class));
+            }
+        });
     }
 
     private void displayItem() {

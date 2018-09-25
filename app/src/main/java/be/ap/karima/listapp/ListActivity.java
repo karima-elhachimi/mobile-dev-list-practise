@@ -16,7 +16,7 @@ public class ListActivity extends AppCompatActivity {
 
     private MyItem item;
     private DataManager myDataManager;
-    private Spinner mListSpinner;
+    //private Spinner mListSpinner;
     private ListView mListView;
     private FloatingActionButton mFabAddItem;
 
@@ -38,7 +38,7 @@ public class ListActivity extends AppCompatActivity {
         });
         */
         myDataManager = DataManager.getInstance();
-        mListSpinner = (Spinner) findViewById(R.id.spinner_list);
+        //mListSpinner = (Spinner) findViewById(R.id.spinner_list); //spinner ook verwijdert van de xml
         mListView = (ListView) findViewById(R.id.listview_list_all);
         mFabAddItem = (FloatingActionButton) findViewById(R.id.fab_add_item);
 
@@ -52,17 +52,21 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                startActivity(new Intent(ListActivity.this, ItemActivity.class));
             }
         });
     }
 
 
     private void displayListItems() {
+       /*
+        //spinner list, drop down versie
         ArrayAdapter<MyItem> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, myDataManager.getList() );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mListSpinner.setAdapter(adapter);
+        mListSpinner.setAdapter(adapter);*/
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, myDataManager.getList());
+       //gewone list
+        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, myDataManager.getList());
         mListView.setAdapter(adapter);
     }
 
