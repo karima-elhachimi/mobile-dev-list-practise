@@ -42,6 +42,7 @@ public class DataManager {
 
     public void updateItem(MyItem item) {
 
-        this.list.set(this.list.indexOf(item), item);
+        int index = this.list.indexOf(item);
+        this.list.set(index, item);
     }
 }

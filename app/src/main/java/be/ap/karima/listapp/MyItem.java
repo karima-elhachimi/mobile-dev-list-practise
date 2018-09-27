@@ -3,10 +3,26 @@ package be.ap.karima.listapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class MyItem implements Parcelable {
     private String mTitle;
     private String myDescription;
     final static String ITEM = "be.ap.karima.listapp.MyItem";
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyItem)) return false;
+        MyItem myItem = (MyItem) o;
+        return Objects.equals(getmTitle(), myItem.getmTitle());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getmTitle());
+    }
 
     public MyItem(String title, String description) {
         this.mTitle = title;

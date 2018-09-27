@@ -88,7 +88,7 @@ public class ItemActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        //todo: maak het mogelijk om aanpassingen of een nieuwe item op te slaan voordat je in de app teruggaat.
+        //todo: maak het mogelijk om aanpassingen of een nieuwe item op te slaan voordat
 
     }
 
@@ -115,6 +115,7 @@ public class ItemActivity extends AppCompatActivity {
             displayItem(this.existingItem);
         } else {
             this.newItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
+            displayItem(this.newItem);
         }
     }
 
@@ -130,9 +131,11 @@ public class ItemActivity extends AppCompatActivity {
 
     public void saveItem(View view) {
         if(this.isNewItem) {
+            this.newItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
             myDataManager.addItem(this.newItem);
             showMessage(view, "Item was added!");
         } else {
+            this.existingItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
             myDataManager.updateItem(this.existingItem);
             showMessage(view, "Item was updated!");
         }
