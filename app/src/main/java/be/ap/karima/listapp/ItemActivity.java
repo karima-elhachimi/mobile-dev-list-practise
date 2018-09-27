@@ -88,7 +88,17 @@ public class ItemActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        //todo: maak het mogelijk om aanpassingen of een nieuwe item op te slaan voordat
+        if(this.isNewItem) {
+            this.newItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
+            myDataManager.addItem(this.newItem);
+            //showMessage(view, "Item was added!");
+        } else {
+            this.existingItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
+            myDataManager.updateItem(this.existingItem);
+            //showMessage(view, "Item was updated!");
+        }
+
+        //todo_done: maak het mogelijk om aanpassingen of een nieuwe item op te slaan voordat
 
     }
 
