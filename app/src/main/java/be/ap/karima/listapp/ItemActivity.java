@@ -79,7 +79,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private void startSettings() {
         //doet nog niets
-        //todo: voeg extra opties toe om implicit intents te oefenen
+        //todo_done: voeg extra opties toe om implicit intents te oefenen, kijk bij startEmailing()
     }
     //einde settings mogelijk maken
 
@@ -88,6 +88,7 @@ public class ItemActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        //todo: maak het mogelijk om aanpassingen of een nieuwe item op te slaan voordat je in de app teruggaat.
 
     }
 
