@@ -6,6 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,6 +51,32 @@ public class ListActivity extends AppCompatActivity {
         itemOnClickHandler();
     }
 
+    //om settings mogelijk te maken:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+//            case R.id.action_add:
+//                addSomething();
+//                return true;
+            case R.id.action_settings:
+                startSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void startSettings() {
+        //doet nog niets
+    }
     private void mFabAddItemClickHandler() {
         mFabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override

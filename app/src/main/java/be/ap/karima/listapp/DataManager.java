@@ -31,11 +31,17 @@ public class DataManager {
 
     }
 
+
     public ArrayList<MyItem> getList(){
         return this.list;
     }
 
     public void addItem(MyItem item) {
         this.list.add(item);
+    }
+
+    public void updateItem(MyItem item) {
+
+        this.list.set(this.list.indexOf(item), item);
     }
 }

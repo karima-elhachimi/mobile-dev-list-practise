@@ -5,6 +5,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +21,16 @@ public class ItemActivity extends AppCompatActivity {
     public DataManager myDataManager = DataManager.getInstance();
     private Intent intent;
 
-    private MyItem item;
+    private MyItem newItem;
+    private MyItem existingItem;
+    private Boolean isNewItem = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
+
+
 
         this.addButton = (Button) findViewById(R.id.button_main_add);
         this.txtTitle = (EditText) findViewById(R.id.text_main_title);
@@ -36,6 +43,40 @@ public class ItemActivity extends AppCompatActivity {
         fabListClickHandler();
     }
 
+    //om settings mogelijk te maken:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+//            case R.id.action_add:
+//                addSomething();
+//                return true;
+            case R.id.action_settings:
+                startSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void startSettings() {
+        //doet nog niets
+    }
+    //einde settings mogelijk maken
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void fabListClickHandler() {
         fabList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,13 +87,26 @@ public class ItemActivity extends AppCompatActivity {
         });
     }
 
-    private void displayItem() {
+    private void displayItem(MyItem item) {
 
         //check if there was a parcelable item passed
-        boolean checkItemNotNull = ((intent.getParcelableExtra(MyItem.ITEM)) != null);
-        item = checkItemNotNull  ? (MyItem) intent.getParcelableExtra(MyItem.ITEM): new MyItem("",""); //fallback
+        //isNewItem = ((intent.getParcelableExtra(MyItem.ITEM)) == null);
+        //boolean checkItemNotNull = ((intent.getParcelableExtra(MyItem.ITEM)) != null);
+        //item = checkItemNotNull  ? (MyItem) intent.getParcelableExtra(MyItem.ITEM): new MyItem("",""); //fallback
+
         txtTitle.setText(item.getmTitle());
         txtDescription.setText(item.getMyDescription());
+    }
+
+    private void createNewItemOrDisplayExisting() {
+        this.isNewItem = ((intent.getParcelableExtra(MyItem.ITEM)) == null);
+        if(!isNewItem) {
+            this.existingItem = (MyItem) intent.getParcelableExtra(MyItem.ITEM);
+            this.txtTitle.setText(this.existingItem.getmTitle());
+            this.txtDescription.setText(this.existingItem.getMyDescription());
+        } else {
+            this.newItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
+        }
     }
 
     private void addBtnClickHandler() {
@@ -66,11 +120,14 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void saveItem(View view) {
-        String title = this.txtTitle.getText().toString();
-        String descr = this.txtDescription.getText().toString();
-        MyItem item = new MyItem(title, descr);
-        myDataManager.addItem(item);
-        showMessage(view, "Item was added!");
+        if(this.isNewItem) {
+            myDataManager.addItem(this.newItem);
+            showMessage(view, "Item was added!");
+        } else {
+            myDataManager.updateItem(this.existingItem);
+            showMessage(view, "Item was updated!");
+        }
+
         clearText();
     }
 
