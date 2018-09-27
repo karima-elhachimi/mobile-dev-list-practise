@@ -38,7 +38,7 @@ public class ItemActivity extends AppCompatActivity {
         this.fabList = (FloatingActionButton) findViewById(R.id.fab_list);
         //intent altijd in onCreate initialiseren, anders geeft het errors
         intent = getIntent();
-        displayItem();
+        createNewItemOrDisplayExisting();
         addBtnClickHandler();
         fabListClickHandler();
     }
@@ -59,15 +59,27 @@ public class ItemActivity extends AppCompatActivity {
 //                addSomething();
 //                return true;
             case R.id.action_settings:
-                startSettings();
+                startEmailing();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void startEmailing() {
+        String subject = "My Item: "+this.txtTitle.getText().toString();
+        String body_text = "This is what I wrote about: "+this.txtTitle.getText().toString()+". \n"+this.txtDescription.getText().toString()+". Cool right?";
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("message/rfc2822");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, body_text);
+        startActivity(intent);
+
+    }
+
     private void startSettings() {
         //doet nog niets
+        //todo: voeg extra opties toe om implicit intents te oefenen
     }
     //einde settings mogelijk maken
 
@@ -75,6 +87,8 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+
     }
 
     private void fabListClickHandler() {
@@ -89,11 +103,6 @@ public class ItemActivity extends AppCompatActivity {
 
     private void displayItem(MyItem item) {
 
-        //check if there was a parcelable item passed
-        //isNewItem = ((intent.getParcelableExtra(MyItem.ITEM)) == null);
-        //boolean checkItemNotNull = ((intent.getParcelableExtra(MyItem.ITEM)) != null);
-        //item = checkItemNotNull  ? (MyItem) intent.getParcelableExtra(MyItem.ITEM): new MyItem("",""); //fallback
-
         txtTitle.setText(item.getmTitle());
         txtDescription.setText(item.getMyDescription());
     }
@@ -102,8 +111,7 @@ public class ItemActivity extends AppCompatActivity {
         this.isNewItem = ((intent.getParcelableExtra(MyItem.ITEM)) == null);
         if(!isNewItem) {
             this.existingItem = (MyItem) intent.getParcelableExtra(MyItem.ITEM);
-            this.txtTitle.setText(this.existingItem.getmTitle());
-            this.txtDescription.setText(this.existingItem.getMyDescription());
+            displayItem(this.existingItem);
         } else {
             this.newItem = new MyItem(this.txtTitle.getText().toString(), this.txtDescription.getText().toString());
         }
