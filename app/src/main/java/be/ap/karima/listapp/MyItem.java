@@ -18,6 +18,13 @@ public class MyItem implements Parcelable {
         return Objects.equals(getmTitle(), myItem.getmTitle());
     }
 
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
+
+    public void setMyDescription(String description){
+        this.myDescription = description;
+    }
     @Override
     public int hashCode() {
 

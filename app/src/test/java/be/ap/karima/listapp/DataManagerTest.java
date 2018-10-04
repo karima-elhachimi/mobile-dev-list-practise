@@ -35,5 +35,22 @@ public class DataManagerTest {
 
     @Test
     public void updateItem() {
+        //testen of dat de item dat ik meegeef wordt geupdate
+
+
+        String updatedDescription = "This is an updated description";
+
+        MyItem firstItemOfList = dm.list.get(0);
+
+        String originalDescription = firstItemOfList.getMyDescription();
+
+        firstItemOfList.setMyDescription(updatedDescription);
+
+        dm.updateItem(firstItemOfList);
+
+        assertNotEquals(originalDescription, dm.list.get(0).getMyDescription());
+        assertEquals(updatedDescription, dm.list.get(0).getMyDescription());
+
+
     }
 }
