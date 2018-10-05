@@ -21,17 +21,24 @@ import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+
+import static org.junit.Assert.*;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ListActivityTest {
 
+    public DataManager dm = DataManager.getInstance();
     @Rule
     public ActivityTestRule<ListActivity> mActivityTestRule = new ActivityTestRule<>(ListActivity.class);
 
@@ -103,10 +110,29 @@ public class ListActivityTest {
         // einde auto generated */
 
 
+
         String newTitle = "This is a title";
         String newDescription = "This is a new description";
 
+        //eerst behaviour testen
+        //fab om naar add new item te gaan
         onView(withId(R.id.fab_add_item)).perform(click());
+        //title intypen en checken of de text correct ingetypt is
+        onView(withId(R.id.text_main_title)).perform(typeText(newTitle)).check(matches(withText(containsString(newTitle))));
+        //same als met title, maar ook de keyboard wegklikken
+        onView(withId(R.id.text_main_description)).perform(typeText(newDescription), closeSoftKeyboard()).check(matches(withText(containsString(newDescription))));
+        //button aanklikken om item toe te voegen
+        onView(withId(R.id.button_main_add)).perform(click());
+
+        //nu logica testen
+        int laatstetoegevoegdeIndex = dm.list.size() - 1;
+        MyItem toegevoegdeItem = dm.list.get(laatstetoegevoegdeIndex);
+
+        assertEquals(newTitle, toegevoegdeItem.getmTitle());
+        assertEquals(newDescription, toegevoegdeItem.getMyDescription());
+
+
+
 
 
     }
